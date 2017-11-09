@@ -14,12 +14,15 @@ namespace SingleResponsibilityPrinciple
             var logger = new ConsoleLogger();
             var tradeValidator = new SimpleTradeValidator(logger);
             var tradeDataProvider = new StreamTradeDataProvider(tradeStream);
+            var URLTradeDataProvider = new URLTradeDataProvider();
+            string url = "http://faculty.css.edu/tgibbons/trades4.txt";
+
             var tradeMapper = new SimpleTradeMapper();
             var tradeParser = new SimpleTradeParser(tradeValidator, tradeMapper);
             var tradeStorage = new AdoNetTradeStorage(logger);
 
             var tradeProcessor = new TradeProcessor(tradeDataProvider, tradeParser, tradeStorage);
-            tradeProcessor.ProcessTrades();
+            tradeProcessor.ProcessTrades(url);
 
             Console.ReadKey();
         }
